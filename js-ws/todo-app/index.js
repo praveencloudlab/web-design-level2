@@ -24,6 +24,7 @@ function display(){
     for(var i=0;i<todos.length;i++){
 
         let li=document.createElement('li');
+        li.classList.add("todo-item");
 
         //create delete button for each todo
         let deleteButton=document.createElement('button');
