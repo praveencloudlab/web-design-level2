@@ -4,21 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .todo-list{
-            list-style-type: none;
-        }
-        .todo-item{
-            margin: 10px 0;
-        }
-    </style>
 </head>
 <body>
     <h1>To Do APP</h1> <hr/>
 
-    <input id="t1" type="text" placeholder="New Task"/>
-    <button id="b1">Add To-Do</button>
-    <ul class="todo-list" id="todo-list"></ul>
+    <div id="todoApp">
+        <h1>Todo App</h1>
+        <input id="taskInput" type="text" placeholder="Add a task">
+        <button id="addTaskButton">Add task</button>
+        <ul id="taskList"></ul>
+      </div>
 
     <script src="index.js"/>
 </body>

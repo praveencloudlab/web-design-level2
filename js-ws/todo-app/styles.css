@@ -1,0 +1,28 @@
+#todoApp {
+    width: 300px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  #taskInput {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  #addTaskButton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  #taskList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #taskList li {
+    padding: 10px;
+    border: 1px solid #000;
+    margin-top: 10px;
+  }
+  
