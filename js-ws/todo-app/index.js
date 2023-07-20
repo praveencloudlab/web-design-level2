@@ -22,23 +22,52 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let tasks = Cache.load();
   //let tasks=JSON.parse(localStorage.getItem('tasks')) || [];
     tasks.forEach((task,index) =>addTaskToList(task,index));
-    addTaskButton.addEventListener('click', () => {
+
+    // Get users geolocation information
+     function getLocation(){
+        return new Promise((resolve,reject) =>{
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition((position)=>{
+                    resolve({
+                        lat:position.coords.latitude,
+                        long:position.coords.longitude
+                    });
+                },reject)
+            }else{
+                reject(new Error('Geolocation not supported by this browser'))
+            }
+        });
+    }
+
+    addTaskButton.addEventListener('click', async () => {
+        console.log(">>>1");
         const task=taskInput.value;
         if(task){
+            let location;
+            try{
+                location=await getLocation();
+            }catch(e){
+                location={lat:null,long:null};
+            }
+            const taskWithLocation={task,location};
             tasks.push(task);
+            tasks.push(taskWithLocation);
             Cache.save(tasks);
+            
             localStorage.setItem('tasks', JSON.stringify(tasks));
-            addTaskToList(task,task.length-1);
+
+            addTaskToList(taskWithLocation,task.length-1);
             taskInput.value = ''
         }
 
     });
 
-    function addTaskToList(task, index) {
+    function addTaskToList(taskObj, index) {
+        console.log(taskObj);
        const li=document.createElement('li');
        const taskText=document.createElement('span');
-        taskText.textContent=task
-      // li.textContent=task;
+       taskText.textContent = taskObj.task;
+       taskText.textContent = `${taskObj.task} (Location: ${taskObj.location && taskObj.location.lat ? taskObj.location.lat.toFixed(2) : 'unknown'}, ${taskObj.location && taskObj.location.long ? taskObj.location.long.toFixed(2) : 'unknown'})`;
        const deleteButton=document.createElement('button');
        deleteButton.textContent='Delete';
        deleteButton.addEventListener('click', ()=>{
